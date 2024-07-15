@@ -15,14 +15,16 @@
     --gray-clr: #313131;
     --base-clr: #FFFFFF;
     --base-dk-clr: #C6C6C6;
+    --background-dk-clr: #F3F6FC;
+    --background-dkr-clr: #EEF3FC;
 }
 
 html {
     box-sizing: border-box;
+    font-size: 1rem;
 }
 
 body {
-    font-size: 1rem;
     background-color: var(--base-clr);
 }
 
@@ -57,6 +59,7 @@ h1 {
 
 .primary-btn {
     background-color: var(--primary-clr);
+    color: var(--base-clr);
 }
 
 .primary-btn:hover {
@@ -166,3 +169,45 @@ main {
 .svg-icon {
     display: flex;
 }
+
+.movie-card {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas:
+            "c-img c-title c-title"
+            "c-img c-desc c-desc"
+            "c-tags c-tags c-button";
+    border-radius: var(--br-radius);
+    background-color: var(--background-dk-clr);
+    max-width: 400px;
+}
+
+.movie-card-img {
+    width: 100px;
+    grid-area: c-img;
+}
+
+.movie-card-title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    grid-area: c-title;
+}
+
+.movie-card-description {
+    font-size: 0.8125rem;
+    grid-area: c-desc;
+}
+
+.movie-card-tags {
+    font-size: 0.875rem;
+    grid-area: c-tags;
+}
+
+.movie-card button {
+    grid-area: c-button;
+}
+
+#movie-cards-container {
+    grid-area: movies;
+}
+
