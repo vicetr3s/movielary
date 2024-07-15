@@ -1,11 +1,12 @@
 import React from "react";
-import Button from "./Button.jsx";
 
 export default function Header() {
     return (
         <>
-            <Button text={"Home"}/>
-            <Button text={"About"}/>
+            <nav className="nav-bar">
+                <a className={"header-btn btn"}>Home</a>
+                <a className={"header-btn btn"}>About</a>
+            </nav>
         </>
     )
 }
