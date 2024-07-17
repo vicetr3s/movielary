@@ -14,9 +14,13 @@ export default function SearchAndDiscover() {
 
     return (
         <section className={"search-and-discover"}>
-            <Button text={""} styleClass={"round-btn primary-btn"} icon={<SearchIcon style={iconStyle} className={"svg-icon"}/>}/>
-            <SearchBar/>
-            <Button text={"Discover"} styleClass={"accent-btn"} icon={<DiscoverIcon style={iconStyle} className={"svg-icon"}/>}/>
+            <div>
+                <Button text={""} styleClass={"round-btn primary-btn"}
+                        icon={<SearchIcon style={iconStyle} className={"svg-icon"}/>}/>
+                <SearchBar/>
+            </div>
+            <Button text={"Discover"} styleClass={"accent-btn"}
+                    icon={<DiscoverIcon style={iconStyle} className={"svg-icon"}/>}/>
         </section>
     )
 }
