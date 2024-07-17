@@ -18,6 +18,7 @@
     --base-dk-clr: #C6C6C6;
     --background-dk-clr: #F3F6FC;
     --background-dkr-clr: #EEF3FC;
+    --description-lines-n: 6;
 }
 
 html {
@@ -143,7 +144,7 @@ h1 {
     display: flex;
     justify-content: center;
     gap: 0.5rem;
-    width: clamp(14rem, 50% + 10vw, 24rem);
+    width: clamp(18rem, 50% + 10vw, 24rem);
 }
 
 main {
@@ -186,7 +187,7 @@ main {
     height: calc(0.1875rem + 2rem);
     padding-inline: 1rem;
     max-width: 450px;
-    width: 70%;
+    width: 80%;
 }
 
 .svg-icon {
@@ -223,9 +224,13 @@ main {
 }
 
 .movie-card-description {
-    max-height: 80%;
     font-size: 0.8125rem;
     grid-area: c-desc;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: var(--description-lines-n);
+    line-clamp: var(--description-lines-n);
+    -webkit-box-orient: vertical;
 }
 
 .movie-card-tags {
