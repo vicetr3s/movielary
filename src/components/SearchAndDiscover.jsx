@@ -6,21 +6,15 @@ import "../App.css"
 import SearchBar from "./SearchBar.jsx";
 
 export default function SearchAndDiscover() {
-    const iconStyle = {
-        fill: "white",
-        width: "25px",
-        height: "25px",
-    }
-
     return (
         <section className={"search-and-discover"}>
             <div>
                 <Button text={""} styleClass={"round-btn primary-btn"}
-                        icon={<SearchIcon style={iconStyle} className={"svg-icon"}/>}/>
+                        icon={<SearchIcon className={"svg-icon"}/>}/>
                 <SearchBar/>
             </div>
             <Button text={"Discover"} styleClass={"accent-btn"}
-                    icon={<DiscoverIcon style={iconStyle} className={"svg-icon"}/>}/>
+                    icon={<DiscoverIcon className={"svg-icon"}/>}/>
         </section>
     )
 }

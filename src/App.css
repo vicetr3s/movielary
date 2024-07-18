@@ -150,30 +150,21 @@ main {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-template-areas:
-            ". . . header ."
+            "header header header header header"
             ". . title . ."
             ". . search . ."
             ". movies movies movies .";
     justify-items: center;
     align-items: center;
     gap: 1.25rem;
-}
-
-@media screen and (max-width: 35em) {
-    main {
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-areas:
-            ". header ."
-            ". title ."
-            ". search ."
-            "movies movies movies";
-    }
+    padding: 0.5rem 1rem;
 }
 
 .nav-bar {
+    width: 70%;
     display: flex;
     gap: 0.5rem;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
     grid-area: header;
     flex-wrap: wrap;
@@ -191,6 +182,9 @@ main {
 
 .svg-icon {
     display: flex;
+    fill: white;
+    width: 1.5rem;
+    aspect-ratio: 1;
 }
 
 .movie-card {
@@ -290,4 +284,19 @@ main {
     border-radius: 0 var(--br-radius) 0 0;
     width: 100%;
     background: repeating-linear-gradient(-65deg, var(--movie-clapper-dk-clr) 0 var(--dashes-width), var(--movie-clapper-lt-clr) var(--dashes-width) calc(var(--dashes-width) * 2));
+}
+
+@media screen and (max-width: 35em) {
+    .nav-bar {
+        justify-content: center;
+    }
+
+    main {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-areas:
+            "header header header"
+            ". title ."
+            ". search ."
+            "movies movies movies";
+    }
 }
