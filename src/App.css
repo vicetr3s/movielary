@@ -8,7 +8,7 @@
     --primary-dk-clr: #0B66EA;
     --secondary-clr: #B0C7EB;
     --secondary-lt-clr: #D1DFF5;
-    --secondary-ltr-clr: #F7F9FD;
+    --secondary-ltr-clr: #F6F9FD;
     --secondary-dk-clr: #97B4E2;
     --accent-clr: #F95285;
     --accent-lt-clr: #FE6C99;
@@ -17,8 +17,9 @@
     --base-clr: #FFFFFF;
     --base-dk-clr: #C6C6C6;
     --background-dk-clr: #F3F6FC;
-    --background-dkr-clr: #EEF3FC;
-    --description-lines-n: 6;
+    --background-dkr-clr: #E6EEFA;
+    --description-lines-n: 5;
+    --title-lines-n: 2;
     --movie-clapper-lt-clr: #778EB1;
     --movie-clapper-dk-clr: #405980;
 }
@@ -196,7 +197,7 @@ main {
             "c-tags c-tags c-button";
     border-radius: calc(var(--br-radius) * 2);
     background-color: var(--secondary-ltr-clr);
-    max-width: 26rem;
+    max-width: 27rem;
     align-items: center;
     gap: 0.5rem;
     padding: 0.7rem;
@@ -214,15 +215,20 @@ main {
     font-size: 1.5rem;
     font-weight: 500;
     grid-area: c-title;
+    --text-lines-n: var(--title-lines-n);
 }
 
 .movie-card-description {
     font-size: 0.8125rem;
     grid-area: c-desc;
+    --text-lines-n: var(--description-lines-n)
+}
+
+.cut-long-text {
     overflow: hidden;
     display: -webkit-box;
-    -webkit-line-clamp: var(--description-lines-n);
-    line-clamp: var(--description-lines-n);
+    -webkit-line-clamp: var(--text-lines-n);
+    line-clamp: var(--text-lines-n);
     -webkit-box-orient: vertical;
 }
 

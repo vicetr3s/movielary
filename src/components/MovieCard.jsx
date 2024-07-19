@@ -1,16 +1,15 @@
 import React from "react";
 import Button from "./Button.jsx";
 
-export default function MovieCard({imgURL, title, description, imdbStars, year, genre}) {
+export default function MovieCard({imgURL, title, description, year, genre}) {
 
     return (
         <>
             <div className="movie-card">
                 <img className={"movie-card-img"} src={imgURL} alt={title}/>
-                <span className={"movie-card-title"}>{title}</span>
-                <p className={"movie-card-description"}>{description}</p>
+                <span className={"movie-card-title cut-long-text"} title={title}>{title}</span>
+                <p className={"movie-card-description cut-long-text"}>{description}</p>
                 <div className={"movie-card-tags"}>
-                    <span>IMDB: {imdbStars}</span>
                     <span>Year: {year}</span>
                     <strong>{genre}</strong>
                 </div>
