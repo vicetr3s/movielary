@@ -1,11 +1,11 @@
-import {API_KEY} from "./AUTH.js";
+const apiKey = import.meta.env.VITE_API_KEY;
 
 function setGETOptions() {
     return {
         method: 'GET',
         headers: {
             accept: 'application/json',
-            Authorization: `Bearer ${API_KEY}`
+            Authorization: `Bearer ${apiKey}`
         }
     };
 }
