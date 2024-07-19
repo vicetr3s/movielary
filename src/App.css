@@ -247,6 +247,7 @@ main {
     padding: 1rem;
     border-radius: 0 0 var(--br-radius) var(--br-radius);
     width: 100%;
+    min-height: 20rem;
 }
 
 
