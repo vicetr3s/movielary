@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import {useState} from "react";
 import Button from "./Button.jsx";
 import SearchIcon from "../assets/search.svg?react";
 import DiscoverIcon from "../assets/discover.svg?react";

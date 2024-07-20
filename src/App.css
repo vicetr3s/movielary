@@ -22,6 +22,7 @@
     --title-lines-n: 2;
     --movie-clapper-lt-clr: #778EB1;
     --movie-clapper-dk-clr: #405980;
+    --fnt-clr: #000000;
 }
 
 body {
@@ -88,14 +89,15 @@ h1 {
     background-color: var(--accent-dk-clr);
 }
 
-.header-btn {
+.nav-btn {
     background-color: var(--base-clr);
     width: fit-content;
     text-decoration: none;
     user-select: none;
+    color: var(--fnt-clr);
 }
 
-.header-btn:hover {
+.nav-btn:hover {
     background-color: var(--base-dk-clr);
 }
 
@@ -147,11 +149,10 @@ h1 {
     width: clamp(18rem, 50% + 10vw, 24rem);
 }
 
-main {
+.home-main {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-template-areas:
-            "header header header header header"
             ". . title . ."
             ". . search . ."
             ". movies movies movies .";
@@ -162,7 +163,9 @@ main {
 }
 
 .nav-bar {
-    width: 70%;
+    padding: 0.25rem;
+    margin-inline: auto;
+    width: 60%;
     display: flex;
     gap: 0.5rem;
     justify-content: flex-end;
@@ -301,7 +304,6 @@ main {
     main {
         grid-template-columns: repeat(3, 1fr);
         grid-template-areas:
-            "header header header"
             ". title ."
             ". search ."
             "movies movies movies";

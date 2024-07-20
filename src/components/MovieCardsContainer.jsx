@@ -1,4 +1,3 @@
-import React from "react";
 import MovieCard from "./MovieCard.jsx";
 
 export default function MovieCardsContainer({movies}) {

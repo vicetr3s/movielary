@@ -1,14 +1,19 @@
 import "./App.css"
-import Header from "./components/Header"
-import PageTitle from "./components/PageTitle.jsx";
-import SearchedMovies from "./components/SearchedMovies.jsx";
+import {HashRouter as Router, Routes, Route} from "react-router-dom";
+import NavBar from "./components/NavBar.jsx"
+import Home from "./pages/home.jsx"
+import About from "./pages/about.jsx";
 
 export default function App() {
     return (
-        <main>
-            <Header/>
-            <PageTitle/>
-            <SearchedMovies/>
-        </main>
+        <>
+            <Router>
+                <NavBar/>
+                <Routes>
+                    <Route path="/" element={<Home/>}/>
+                    <Route path="/about" element={<About/>}/>
+                </Routes>
+            </Router>
+        </>
     )
 }

@@ -1,4 +1,3 @@
-import React from "react";
 import EmojiIcon from "./EmojiIcon";
 
 export default function PageTitle() {
