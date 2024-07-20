@@ -1,4 +1,4 @@
-const apiKey = import.meta.env.VITE_API_KEY;
+const apiKey = import.meta.env.VITE_API_KEY; // Type your themoviedb free api key
 
 function setGETOptions() {
     return {
@@ -10,8 +10,8 @@ function setGETOptions() {
     };
 }
 
-export async function getPopularMovies() {
-    const URL = "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc";
+export async function getPopularMovies(adult, page, descSort) {
+    const URL = `https://api.themoviedb.org/3/discover/movie?${addURLParameters(adult, page, false, true, descSort)}`;
 
     const dataJSON = await fetchURL(URL);
 
@@ -32,10 +32,8 @@ export async function getConfiguration() {
 
 export async function getMoviesFromTitle(title, adult, page) {
     const titleName = title.split(" ").join("%20");
-    const includeAdult = `&include_adult=${adult}`;
-    const language = "&language=en-US";
-    const pageNumber = `&page=${page}`
-    const URL = `https://api.themoviedb.org/3/search/movie?query=${titleName}${includeAdult}${language}${pageNumber}`;
+
+    const URL = `https://api.themoviedb.org/3/search/movie?query=${titleName}${addURLParameters(adult, page)}`;
 
     const dataJSON = await fetchURL(URL);
 
@@ -81,4 +79,16 @@ export async function fetchURL(URL) {
     } catch (error) {
         console.error(error);
     }
+}
+
+const addURLParameters = (adult = true, page = 1, video = false, popularitySort = false, descSort = true) => {
+    const includeAdult = `&include_adult=${adult}`;
+    const includeVideo = `&include_video=${video}`
+    const language = "&language=en-US";
+    const pageNumber = `&page=${page}`
+    const sort = descSort ? "&sort_by=popularity.desc" : "&sort_by=popularity.asc";
+
+    if (!popularitySort) return includeAdult + includeVideo + language + pageNumber;
+
+    return includeAdult + includeVideo + language + pageNumber + sort;
 }

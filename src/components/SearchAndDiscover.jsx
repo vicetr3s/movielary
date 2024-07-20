@@ -10,9 +10,15 @@ export default function SearchAndDiscover({setMovies}) {
     const lengthNeededToSearchMovie = 4;
 
     const handleDiscoverButtonClick = () => {
-        getPopularMovies().then((movies) => {
+        getPopularMovies(true, 1, true).then((movies) => {
             setMovies(movies);
         });
+    }
+
+    const handleSearchButtonClick = () => {
+        getMoviesFromTitle(searchText, true, 1).then((movies) => {
+            setMovies(movies);
+        })
     }
 
     const handleSearchText = (searchText) => {
@@ -29,7 +35,7 @@ export default function SearchAndDiscover({setMovies}) {
         <section className={"search-and-discover"}>
             <div>
                 <Button text={""} styleClass={"round-btn primary-btn"}
-                        icon={<SearchIcon className={"svg-icon"}/>}/>
+                        icon={<SearchIcon className={"svg-icon"}/>} handleClick={handleSearchButtonClick}/>
                 <input className={"search-bar"} type="text" placeholder="Search a movie title..." value={searchText}
                        onChange={event => handleSearchText(event.target.value)}/>
             </div>
