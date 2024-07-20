@@ -29,6 +29,10 @@ export default function SearchAndDiscover({setMovies}) {
                 setMovies(movies);
             })
         }
+
+        if (searchText.length === 0) {
+            setMovies(null);
+        }
     }
 
     return (
