@@ -382,6 +382,10 @@ h2 {
     transform: translate(20%, 10%);
 }
 
+.github-name {
+    text-decoration: none;
+}
+
 /* Media queries */
 
 @media screen and (max-width: 35em) {

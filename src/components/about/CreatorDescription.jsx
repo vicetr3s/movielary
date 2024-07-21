@@ -9,7 +9,7 @@ export default function CreatorDescription() {
             </div>
             <ul className="description-list">
                 <li>
-                    Created by <strong className={"accent-text"}>@vicetr3s</strong> <GithubIcon
+                    Created by <a href={"https://github.com/vicetr3s"} className={"accent-text github-name"}>@vicetr3s</a> <GithubIcon
                         className={"about-icon"}/>
                 </li>
                 <li>
