@@ -1,5 +1,5 @@
 export default function CreatorImage() {
-    const imgSrc = "/assets/images/kuzco.webp";
+    const imgSrc = "/images/vicetr3s.jpg";
     return (
         <section className={"creator-portrait-section"}>
             <figure>
