@@ -43,6 +43,9 @@ export async function getMoviesFromTitle(title, adult, page) {
 async function getMovies(dataJSON) {
     const configJSON = await getConfiguration();
     const genresJSON = await getGenres();
+
+    if (!dataJSON || !configJSON || !genresJSON) return;
+
     const genresList = genresJSON.genres;
 
     return Array.from(dataJSON.results).map(item => {
@@ -71,13 +74,30 @@ export async function fetchURL(URL) {
         const response = await fetch(URL, fetchOptions);
 
         if (!response.ok) {
-            console.error(`Could not fetch.`);
+            switch (response.status) {
+                case 400:
+                    console.error("400 Bad Request");
+                    break;
+                case 401:
+                    console.error("401 Unauthorized");
+                    break;
+                case 404:
+                    console.error("404 Not Found");
+                    break;
+                case 500:
+                    console.error("500 Internal Server Error");
+                    break;
+                default:
+                    console.error("Could Not Fetch");
+                    break;
+            }
+
             return;
         }
 
         return await response.json();
     } catch (error) {
-        console.error(error);
+        throw new Error(error.message);
     }
 }
 
