@@ -1,4 +1,4 @@
-import EmojiIcon from "./EmojiIcon";
+import EmojiIcon from "./EmojiIcon.jsx";
 
 export default function PageTitle() {
     return (

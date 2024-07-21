@@ -1,7 +1,11 @@
+import CreatorImage from "../components/about/CreatorImage.jsx";
+import CreatorDescription from "../components/about/CreatorDescription.jsx";
+
 export default function About() {
     return (
-        <>
-            <h2>About page</h2>
-        </>
+        <main className="about-main grid-spacing">
+            <CreatorDescription/>
+            <CreatorImage/>
+        </main>
     )
 }
