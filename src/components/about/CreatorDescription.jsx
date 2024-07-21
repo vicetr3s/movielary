@@ -9,12 +9,17 @@ export default function CreatorDescription() {
             </div>
             <ul className="description-list">
                 <li>
-                    Created by <a href={"https://github.com/vicetr3s"} className={"accent-text github-name"}>@vicetr3s</a> <GithubIcon
-                        className={"about-icon"}/>
+                    Created by <a href={"https://github.com/vicetr3s"}
+                                  className={"accent-text github-name"}>@vicetr3s</a>
+                    <a href={"https://github.com/"} target={"_blank"}>
+                        <GithubIcon className={"about-icon"}/>
+                    </a>
                 </li>
                 <li>
-                    This product uses the TMDB API but is not endorsed or certified by TMDB <TMDBIcon
-                        className={"about-icon"}/>
+                    This product uses the TMDB API but is not endorsed or certified by TMDB
+                    <a href={"https://www.themoviedb.org/"} target={"_blank"}>
+                        <TMDBIcon className={"about-icon"}/>
+                    </a>
                 </li>
             </ul>
         </section>
