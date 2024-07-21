@@ -1,7 +1,7 @@
 import {useState} from "react";
 import Button from "../ui/Button.jsx";
-import SearchIcon from "../../assets/svg/search.svg?react";
-import DiscoverIcon from "../../assets/svg/discover.svg?react";
+import SearchIcon from "../../../public/assets/svg/search.svg?react";
+import DiscoverIcon from "../../../public/assets/svg/discover.svg?react";
 import "../../App.css"
 import {getMoviesFromTitle, getPopularMovies} from "../../lib/MoviesAPI.js";
 

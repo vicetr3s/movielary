@@ -1,5 +1,5 @@
-import GithubIcon from "../../assets/svg/github.svg?react";
-import TMDBIcon from "../../assets/svg/tmdb.svg?react"
+import GithubIcon from "../../../public/assets/svg/github.svg?react";
+import TMDBIcon from "../../../public/assets/svg/tmdb.svg?react"
 
 export default function CreatorDescription() {
     return (
