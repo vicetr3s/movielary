@@ -10,13 +10,13 @@ export default function SearchAndDiscover({setMovies}) {
     const lengthNeededToSearchMovie = 4;
 
     const handleDiscoverButtonClick = () => {
-        getPopularMovies(true, 1, true).then((movies) => {
+        getPopularMovies(1, true).then((movies) => {
             setMovies(movies);
         });
     }
 
     const handleSearchButtonClick = () => {
-        getMoviesFromTitle(searchText, true, 1).then((movies) => {
+        getMoviesFromTitle(searchText, 1).then((movies) => {
             setMovies(movies);
         })
     }
@@ -25,7 +25,7 @@ export default function SearchAndDiscover({setMovies}) {
         setSearchText(searchText);
 
         if (searchText.length >= lengthNeededToSearchMovie) {
-            getMoviesFromTitle(searchText, true, 1).then((movies) => {
+            getMoviesFromTitle(searchText, 1).then((movies) => {
                 setMovies(movies);
             })
         }

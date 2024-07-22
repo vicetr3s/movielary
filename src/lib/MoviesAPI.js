@@ -10,8 +10,8 @@ function setGETOptions() {
     };
 }
 
-export async function getPopularMovies(adult, page, descSort) {
-    const URL = `https://api.themoviedb.org/3/discover/movie?${addURLParameters(adult, page, false, true, descSort)}`;
+export async function getPopularMovies(page, descSort) {
+    const URL = `https://api.themoviedb.org/3/discover/movie?${addURLParameters(page, false, true, descSort)}`;
 
     const dataJSON = await fetchURL(URL);
 
@@ -30,10 +30,10 @@ export async function getConfiguration() {
     return fetchURL(URL);
 }
 
-export async function getMoviesFromTitle(title, adult, page) {
+export async function getMoviesFromTitle(title, page) {
     const titleName = title.split(" ").join("%20");
 
-    const URL = `https://api.themoviedb.org/3/search/movie?query=${titleName}${addURLParameters(adult, page)}`;
+    const URL = `https://api.themoviedb.org/3/search/movie?query=${titleName}${addURLParameters(page)}`;
 
     const dataJSON = await fetchURL(URL);
 
@@ -123,8 +123,8 @@ export async function fetchURL(URL) {
     }
 }
 
-const addURLParameters = (adult = true, page = 1, video = false, popularitySort = false, descSort = true) => {
-    const includeAdult = `&include_adult=${adult}`;
+const addURLParameters = (page = 1, video = false, popularitySort = false, descSort = true) => {
+    const includeAdult = `&include_adult=false`;
     const includeVideo = `&include_video=${video}`
     const language = "&language=en-US";
     const pageNumber = `&page=${page}`
