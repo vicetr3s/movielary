@@ -11,13 +11,13 @@ export default function CreatorDescription() {
                 <li>
                     Created by <a href={"https://github.com/vicetr3s"}
                                   className={"accent-text github-name"}>@vicetr3s</a>
-                    <a href={"https://github.com/"} target={"_blank"}>
+                    <a href={"https://github.com/"} target={"_blank"} rel="noopener noreferrer">
                         <GithubIcon className={"about-icon"}/>
                     </a>
                 </li>
                 <li>
                     This product uses the TMDB API but is not endorsed or certified by TMDB
-                    <a href={"https://www.themoviedb.org/"} target={"_blank"}>
+                    <a href={"https://www.themoviedb.org/"} target={"_blank"} rel="noopener noreferrer">
                         <TMDBIcon className={"about-icon"}/>
                     </a>
                 </li>

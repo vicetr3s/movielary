@@ -8,7 +8,8 @@ export default function MovieCardsContainer({movies}) {
         </div>
 
         <section className={"movie-cards-container container"}>
-            {movies && movies?.map(movie => <MovieCard key={movie.id} title={movie.title} imgURL={movie.imgUrl}
+            {movies && movies?.map(movie => <MovieCard key={movie.id} movieID={movie.id} title={movie.title}
+                                                       imgURL={movie.imgUrl}
                                                        description={movie.description} year={movie.year}
                                                        genre={movie.genre}/>)}
         </section>

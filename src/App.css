@@ -254,8 +254,12 @@ h2 {
     grid-area: c-tags;
 }
 
-.movie-card button {
+.movie-card-btn {
+    margin-left: auto;
+    width: fit-content;
+    text-align: center;
     grid-area: c-button;
+    text-decoration: none;
 }
 
 .container {

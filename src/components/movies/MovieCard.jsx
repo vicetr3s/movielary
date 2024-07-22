@@ -1,7 +1,6 @@
-import Button from "../ui/Button.jsx";
+import {NavLink} from "react-router-dom";
 
-export default function MovieCard({imgURL, title, description, year, genre}) {
-
+export default function MovieCard({movieID, imgURL, title, description, year, genre}) {
     return (
         <>
             <div className="movie-card">
@@ -12,7 +11,9 @@ export default function MovieCard({imgURL, title, description, year, genre}) {
                     <span>Year: {year}</span>
                     <strong>{genre}</strong>
                 </div>
-                <Button text={"See cards"} styleClass={"primary-btn"}/>
+                <NavLink to="/movie" state={{id: movieID}} className={"movie-card-btn primary-btn btn"}>
+                    See cards
+                </NavLink>
             </div>
         </>
     )
