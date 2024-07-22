@@ -19,7 +19,7 @@
     --background-dk-clr: #F3F6FC;
     --background-dkr-clr: #E6EEFA;
     --description-lines-n: 5;
-    --long-description-lines-n : 6;
+    --long-description-lines-n: 6;
     --title-lines-n: 2;
     --movie-clapper-lt-clr: #778EB1;
     --movie-clapper-dk-clr: #405980;
@@ -178,7 +178,7 @@ h2 {
     margin-top: 0.5rem;
     padding: 0.25rem;
     margin-inline: auto;
-    width: 60%;
+    width: 80%;
     display: flex;
     gap: 0.5rem;
     justify-content: flex-end;
@@ -403,16 +403,25 @@ h2 {
             "similar similar similar";
     justify-items: center;
     align-items: center;
-    width: 90%;
+    width: 80%;
     margin-inline: auto;
 }
 
 .movie-expanded-card {
     grid-area: movie-card;
-    display: grid;
-    grid-template-columns: 1fr 1fr 10rem;
-    justify-items: center;
-    align-items: center;
+    display: flex;
+    flex-direction: row;
+    max-width: 45rem;
+    padding: 1rem;
+    gap: 1rem;
+    height: 100%;
+}
+
+.movie-expanded-card-body-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-width: 18rem;
 }
 
 .movie-expanded-card-title {
@@ -427,26 +436,45 @@ h2 {
 
 .explanation-card {
     grid-area: expl-card;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 20rem;
+    padding: 1rem;
+    font-size: 1rem;
+    height: 100%;
 }
 
 .movie-expanded-card-img {
     border-radius: var(--br-radius);
+    max-width: 100%;
+    max-height: 8rem;
+    object-fit: cover;
+    margin-block: auto;
 }
 
-.movie-expanded-card-body-text {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
 
 .movie-expanded-card-tags {
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 1rem;
+    flex-wrap: wrap;
 }
 
 /* Media queries */
+
+@media screen and (max-width: 60em) {
+    .movie-expanded-card {
+        flex-direction: column;
+    }
+
+    .movie-expanded-card-tags {
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+
+}
 
 @media screen and (max-width: 35em) {
     .nav-bar {
@@ -467,5 +495,18 @@ h2 {
         grid-template-areas:
             "description"
             "portrait"
+    }
+
+    .movie-main {
+        grid-template-areas:
+            "movie-card"
+            "expl-card"
+            "concept"
+            "similar";
+    }
+
+    .explanation-card {
+        width: 100%;
+        max-width: max-content;
     }
 }

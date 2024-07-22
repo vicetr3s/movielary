@@ -2,7 +2,7 @@ export default function MovieExpandedCard({imgURL, title, description, imdb, yea
 
     return (
         <div className="movie-expanded-card container">
-            <img className={"movie-expanded-card-img"} src={imgURL} alt={title}/>
+            <img className={"movie-expanded-card-img"} src={imgURL} alt={title} loading={"lazy"}/>
             <div className="movie-expanded-card-body-text">
                 <span className={"movie-expanded-card-title cut-long-text"} title={title}>{title}</span>
                 <p className={"movie-expanded-card-description cut-long-text"}>{description}</p>
