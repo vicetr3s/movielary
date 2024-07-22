@@ -21,7 +21,7 @@ export default function Movie() {
                 {movie && <MovieExpandedCard title={movie.title}
                                              imgURL={movie.imgUrl}
                                              description={movie.description} year={movie.year}
-                                             genre={movie.genre} adult={movie.adult} duration={movie.min}/>}
+                                             genre={movie.genre} duration={movie.min}/>}
                 <ExplanationCard/>
             </main>
         </>

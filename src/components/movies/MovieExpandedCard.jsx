@@ -1,5 +1,4 @@
-export default function MovieExpandedCard({imgURL, title, description, imdb, year, duration, adult, genre}) {
-    const adultTag = adult ? "Adult" : "Family";
+export default function MovieExpandedCard({imgURL, title, description, imdb, year, duration, genre}) {
 
     return (
         <div className="movie-expanded-card container">
@@ -12,7 +11,6 @@ export default function MovieExpandedCard({imgURL, title, description, imdb, yea
                 <span>IMDB: {imdb}</span>
                 <span>Year: {year}</span>
                 <span>Duration: {duration} min</span>
-                <strong>{adultTag}</strong>
                 <strong>{genre}</strong>
             </div>
         </div>

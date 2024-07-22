@@ -60,7 +60,7 @@ async function getMovies(dataJSON, details = false) {
     const movies = details ? [dataJSON] : Array.from(dataJSON.results);
 
     return movies.map(item => {
-        const {id, title, backdrop_path, overview, release_date, adult} = item;
+        const {id, title, backdrop_path, overview, release_date} = item;
         const imgUrl = backdrop_path ? `${configJSON.images.base_url}${configJSON.images.backdrop_sizes[0]}${backdrop_path}` : "";
         const yearRegex = /^.*?-/;
         const year = release_date ? release_date.match(yearRegex)[0].slice(0, -1) : "";
@@ -82,7 +82,6 @@ async function getMovies(dataJSON, details = false) {
             description: overview,
             year: year,
             genre: genre,
-            adult: adult,
             imdbID: imdbID,
             min: min,
         }
