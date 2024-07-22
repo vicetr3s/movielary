@@ -40,21 +40,40 @@ export async function getMoviesFromTitle(title, adult, page) {
     return getMovies(dataJSON);
 }
 
-async function getMovies(dataJSON) {
+export async function getMovieDetailsFromID(movieID) {
+    const URL = `https://api.themoviedb.org/3/movie/${movieID}`;
+
+    const dataJSON = await fetchURL(URL);
+
+    const arrayMovie = await getMovies(dataJSON, true);
+
+    return {...arrayMovie[0]};
+}
+
+async function getMovies(dataJSON, details = false) {
     const configJSON = await getConfiguration();
     const genresJSON = await getGenres();
 
     if (!dataJSON || !configJSON || !genresJSON) return;
 
     const genresList = genresJSON.genres;
+    const movies = details ? [dataJSON] : Array.from(dataJSON.results);
 
-    return Array.from(dataJSON.results).map(item => {
-        const {id, title, backdrop_path, overview, release_date, genre_ids} = item;
+    return movies.map(item => {
+        const {id, title, backdrop_path, overview, release_date, adult} = item;
         const imgUrl = backdrop_path ? `${configJSON.images.base_url}${configJSON.images.backdrop_sizes[0]}${backdrop_path}` : "";
-        const genreFound = genresList.find(genre => genre.id === genre_ids[0]);
-        const genre = genreFound ? genreFound.name : "";
         const yearRegex = /^.*?-/;
         const year = release_date ? release_date.match(yearRegex)[0].slice(0, -1) : "";
+        const imdbID = item.imdb_id ?? "";
+        const min = item.runtime ?? "";
+        let genre;
+
+        if (details) {
+            genre = item.genres[0] ? item.genres[0].name : "";
+        } else {
+            const genreFound = genresList.find(genre => genre.id === item.genre_ids[0]);
+            genre = genreFound ? genreFound.name : "";
+        }
 
         return {
             id: id,
@@ -63,6 +82,9 @@ async function getMovies(dataJSON) {
             description: overview,
             year: year,
             genre: genre,
+            adult: adult,
+            imdbID: imdbID,
+            min: min,
         }
     })
 }
