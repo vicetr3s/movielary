@@ -8,7 +8,7 @@ export default function MovieExpandedCard({imgURL, title, description, imdb, yea
                 <p className={"movie-expanded-card-description cut-long-text"}>{description}</p>
             </div>
             <div className={"movie-expanded-card-tags"}>
-                <span>IMDB: {imdb}</span>
+                <span>IMDB: {imdb} / 10</span>
                 <span>Year: {year}</span>
                 <span>Duration: {duration} min</span>
                 <strong>{genre}</strong>

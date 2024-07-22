@@ -3,6 +3,7 @@ import ExplanationCard from "../components/movies/ExplanationCard.jsx";
 import {useLocation} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {getMovieDetailsFromID} from "../lib/MoviesAPI.js";
+import ConceptCardsContainer from "../components/movies/ConceptCardsContainer.jsx";
 
 export default function Movie() {
     const location = useLocation();
@@ -13,7 +14,8 @@ export default function Movie() {
         getMovieDetailsFromID(id).then((movie) => {
             setMovie(movie);
         });
-    })
+
+    }, [movie])
 
     return (
         <>
@@ -23,6 +25,7 @@ export default function Movie() {
                                              description={movie.description} year={movie.year}
                                              genre={movie.genre} duration={movie.min}/>}
                 <ExplanationCard/>
+                <ConceptCardsContainer/>
             </main>
         </>
     )
