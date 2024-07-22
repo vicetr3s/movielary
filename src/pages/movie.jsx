@@ -17,11 +17,13 @@ export default function Movie() {
 
     return (
         <>
-            {movie && <MovieExpandedCard title={movie.title}
-                                         imgURL={movie.imgUrl}
-                                         description={movie.description} year={movie.year}
-                                         genre={movie.genre} adult={movie.adult} duration={movie.min}/>}
-            <ExplanationCard/>
+            <main className={"movie-main grid-spacing"}>
+                {movie && <MovieExpandedCard title={movie.title}
+                                             imgURL={movie.imgUrl}
+                                             description={movie.description} year={movie.year}
+                                             genre={movie.genre} adult={movie.adult} duration={movie.min}/>}
+                <ExplanationCard/>
+            </main>
         </>
     )
 }

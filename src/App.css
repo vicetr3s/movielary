@@ -19,6 +19,7 @@
     --background-dk-clr: #F3F6FC;
     --background-dkr-clr: #E6EEFA;
     --description-lines-n: 5;
+    --long-description-lines-n : 6;
     --title-lines-n: 2;
     --movie-clapper-lt-clr: #778EB1;
     --movie-clapper-dk-clr: #405980;
@@ -388,6 +389,61 @@ h2 {
 
 .github-name {
     text-decoration: none;
+}
+
+/* Movie page */
+
+.movie-main {
+    display: grid;
+    grid-template-areas:
+            "movie-card movie-card expl-card"
+            "concept concept concept"
+            "concept concept concept"
+            "concept concept concept"
+            "similar similar similar";
+    justify-items: center;
+    align-items: center;
+    width: 90%;
+    margin-inline: auto;
+}
+
+.movie-expanded-card {
+    grid-area: movie-card;
+    display: grid;
+    grid-template-columns: 1fr 1fr 10rem;
+    justify-items: center;
+    align-items: center;
+}
+
+.movie-expanded-card-title {
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.movie-expanded-card-description {
+    font-size: 1rem;
+    --text-lines-n: var(--long-description-lines-n)
+}
+
+.explanation-card {
+    grid-area: expl-card;
+}
+
+.movie-expanded-card-img {
+    border-radius: var(--br-radius);
+}
+
+.movie-expanded-card-body-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.movie-expanded-card-tags {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
 }
 
 /* Media queries */
