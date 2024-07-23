@@ -70,7 +70,7 @@ async function getMovieSubtitleFileId(imdbId) {
     }
 }
 
-export async function getMovieSubtitleStr(imdbId) {
+export async function getMovieSubtitle(imdbId) {
     const url = "https://api.opensubtitles.com/api/v1/download";
 
     try {
@@ -78,10 +78,24 @@ export async function getMovieSubtitleStr(imdbId) {
 
         const fileId = await getMovieSubtitleFileId(imdbId);
         const dataJson = await fetchUrl(url, setDownloadPostOptions(fileId));
-        const strLink = dataJson.link;
+        const srtUrl = dataJson["link"];
+        const srt = await fetchUrl(srtUrl, {}, false);
 
-        return strLink;
+        return parseSrt(String(srt));
     } catch (error) {
         console.log(error);
     }
+}
+
+async function parseSrt(srt) {
+    const subtitleBlocks = srt.trim().split(/\n\s*\n/);
+
+    return subtitleBlocks.map(subtitleBlock => {
+        let [_timeString, ...textLines] = subtitleBlock.split("\n");
+        textLines.shift();
+        return textLines
+            .join(" ")
+            .replace(/<[^>]*>/g, "")
+            .replace(/\{.*?}/g, '');
+    });
 }

@@ -88,7 +88,7 @@ async function getMovies(dataJson, details = false) {
     })
 }
 
-export async function fetchUrl(url, options) {
+export async function fetchUrl(url, options, json = true) {
     try {
         const response = await fetch(url, options);
 
@@ -113,6 +113,8 @@ export async function fetchUrl(url, options) {
 
             return;
         }
+
+        if (!json) return await response.text();
 
         return await response.json();
     } catch (error) {
