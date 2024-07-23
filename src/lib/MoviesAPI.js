@@ -11,53 +11,53 @@ function setGETOptions() {
 }
 
 export async function getPopularMovies(page, descSort) {
-    const URL = `https://api.themoviedb.org/3/discover/movie?${addURLParameters(page, false, true, descSort)}`;
+    const url = `https://api.themoviedb.org/3/discover/movie?${addUrlParameters(page, false, true, descSort)}`;
 
-    const dataJSON = await fetchURL(URL, setGETOptions());
+    const dataJson = await fetchUrl(url, setGETOptions());
 
-    return getMovies(dataJSON);
+    return getMovies(dataJson);
 }
 
 async function getGenres() {
-    const URL = "https://api.themoviedb.org/3/genre/movie/list";
+    const url = "https://api.themoviedb.org/3/genre/movie/list";
 
-    return fetchURL(URL, setGETOptions());
+    return fetchUrl(url, setGETOptions());
 }
 
 export async function getConfiguration() {
-    const URL = "https://api.themoviedb.org/3/configuration";
+    const url = "https://api.themoviedb.org/3/configuration";
 
-    return fetchURL(URL, setGETOptions());
+    return fetchUrl(url, setGETOptions());
 }
 
 export async function getMoviesFromTitle(title, page) {
     const titleName = title.split(" ").join("%20");
 
-    const URL = `https://api.themoviedb.org/3/search/movie?query=${titleName}${addURLParameters(page)}`;
+    const url = `https://api.themoviedb.org/3/search/movie?query=${titleName}${addUrlParameters(page)}`;
 
-    const dataJSON = await fetchURL(URL, setGETOptions());
+    const dataJson = await fetchUrl(url, setGETOptions());
 
-    return getMovies(dataJSON);
+    return getMovies(dataJson);
 }
 
 export async function getMovieDetailsFromID(movieID) {
-    const URL = `https://api.themoviedb.org/3/movie/${movieID}`;
+    const url = `https://api.themoviedb.org/3/movie/${movieID}`;
 
-    const dataJSON = await fetchURL(URL, setGETOptions());
+    const dataJson = await fetchUrl(url, setGETOptions());
 
-    const arrayMovie = await getMovies(dataJSON, true);
+    const arrayMovie = await getMovies(dataJson, true);
 
     return {...arrayMovie[0]};
 }
 
-async function getMovies(dataJSON, details = false) {
+async function getMovies(dataJson, details = false) {
     const configJSON = await getConfiguration();
     const genresJSON = await getGenres();
 
-    if (!dataJSON || !configJSON || !genresJSON) return;
+    if (!dataJson || !configJSON || !genresJSON) return;
 
     const genresList = genresJSON.genres;
-    const movies = details ? [dataJSON] : Array.from(dataJSON.results);
+    const movies = details ? [dataJson] : Array.from(dataJson.results);
 
     return movies.map(item => {
         const {id, title, backdrop_path, overview, release_date} = item;
@@ -88,9 +88,9 @@ async function getMovies(dataJSON, details = false) {
     })
 }
 
-export async function fetchURL(URL, options) {
+export async function fetchUrl(url, options) {
     try {
-        const response = await fetch(URL, options);
+        const response = await fetch(url, options);
 
         if (!response.ok) {
             switch (response.status) {
@@ -120,7 +120,7 @@ export async function fetchURL(URL, options) {
     }
 }
 
-const addURLParameters = (page = 1, video = false, popularitySort = false, descSort = true) => {
+const addUrlParameters = (page = 1, video = false, popularitySort = false, descSort = true) => {
     const includeAdult = `&include_adult=false`;
     const includeVideo = `&include_video=${video}`
     const language = "&language=en-US";
