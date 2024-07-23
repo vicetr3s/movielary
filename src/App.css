@@ -544,6 +544,7 @@ h3 {
     }
 
     .movie-main {
+        width: 90%;
         grid-template-areas:
             "movie-card"
             "expl-card"

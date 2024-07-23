@@ -1,4 +1,4 @@
-const apiKey = import.meta.env.VITE_API_KEY; // Type your themoviedb free api key
+const apiKey = import.meta.env.VITE_TMDB_API_KEY; // Type your themoviedb free api key
 
 function setGETOptions() {
     return {
@@ -13,7 +13,7 @@ function setGETOptions() {
 export async function getPopularMovies(page, descSort) {
     const URL = `https://api.themoviedb.org/3/discover/movie?${addURLParameters(page, false, true, descSort)}`;
 
-    const dataJSON = await fetchURL(URL);
+    const dataJSON = await fetchURL(URL, setGETOptions());
 
     return getMovies(dataJSON);
 }
@@ -21,13 +21,13 @@ export async function getPopularMovies(page, descSort) {
 async function getGenres() {
     const URL = "https://api.themoviedb.org/3/genre/movie/list";
 
-    return fetchURL(URL);
+    return fetchURL(URL, setGETOptions());
 }
 
 export async function getConfiguration() {
     const URL = "https://api.themoviedb.org/3/configuration";
 
-    return fetchURL(URL);
+    return fetchURL(URL, setGETOptions());
 }
 
 export async function getMoviesFromTitle(title, page) {
@@ -35,7 +35,7 @@ export async function getMoviesFromTitle(title, page) {
 
     const URL = `https://api.themoviedb.org/3/search/movie?query=${titleName}${addURLParameters(page)}`;
 
-    const dataJSON = await fetchURL(URL);
+    const dataJSON = await fetchURL(URL, setGETOptions());
 
     return getMovies(dataJSON);
 }
@@ -43,7 +43,7 @@ export async function getMoviesFromTitle(title, page) {
 export async function getMovieDetailsFromID(movieID) {
     const URL = `https://api.themoviedb.org/3/movie/${movieID}`;
 
-    const dataJSON = await fetchURL(URL);
+    const dataJSON = await fetchURL(URL, setGETOptions());
 
     const arrayMovie = await getMovies(dataJSON, true);
 
@@ -88,11 +88,9 @@ async function getMovies(dataJSON, details = false) {
     })
 }
 
-export async function fetchURL(URL) {
-    const fetchOptions = setGETOptions();
-
+export async function fetchURL(URL, options) {
     try {
-        const response = await fetch(URL, fetchOptions);
+        const response = await fetch(URL, options);
 
         if (!response.ok) {
             switch (response.status) {
