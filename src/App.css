@@ -275,13 +275,13 @@ h3 {
 
 .movie-cards-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
     gap: 1rem;
     justify-items: center;
     align-items: center;
     border-radius: 0 0 var(--br-radius) var(--br-radius) !important;
     width: 100%;
-    min-height: 20rem;
+    min-height: 45vh;
 }
 
 
@@ -388,7 +388,7 @@ h3 {
 .about-icon {
     height: 1.5rem;
     position: relative;
-    transform: translate(20%, 10%);
+    transform: translate(20%, 20%);
 }
 
 .github-name {

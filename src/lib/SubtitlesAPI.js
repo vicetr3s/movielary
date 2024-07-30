@@ -4,26 +4,22 @@ const apiKey = import.meta.env.VITE_OS_API_KEY; // Type your opensubtitles.com f
 const username = import.meta.env.VITE_OS_USERNAME; // Type your opensubtitles.com username
 const password = import.meta.env.VITE_OS_PASSWORD; // Type your opensubtitles.com password
 let accessToken;
+let stopWordsSet;
 
 function setLoginPostOptions() {
     return {
-        method: 'POST',
-        headers: {
+        method: 'POST', headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
             'Api-Key': `${apiKey}`,
             'User-Agent': 'movielary v0.0.0',
-        },
-        body: JSON.stringify(
-            {"username": username, "password": password},
-        )
+        }, body: JSON.stringify({"username": username, "password": password},)
     }
 }
 
 function setGetOptions() {
     return {
-        method: 'GET',
-        headers: {
+        method: 'GET', headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
             'Api-Key': `${apiKey}`,
@@ -35,16 +31,12 @@ function setGetOptions() {
 
 function setDownloadPostOptions(fileId) {
     return {
-        method: 'POST',
-        headers: {
+        method: 'POST', headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
             'Api-Key': `${apiKey}`,
             'User-Agent': 'movielary v0.0.0',
-        },
-        body: JSON.stringify(
-            {"file_id": fileId},
-        )
+        }, body: JSON.stringify({"file_id": fileId},)
     }
 }
 
@@ -98,4 +90,22 @@ async function parseSrt(srt) {
             .replace(/<[^>]*>/g, "")
             .replace(/\{.*?}/g, '');
     });
+}
+
+export async function getConceptWordsFromSubtitle(subtitle) {
+    const stopWordsTxt = await fetchUrl("public/txt/stop_words.txt", {}, false);
+    const conceptWordsSet = new Set();
+
+    if (!stopWordsSet) {
+        stopWordsSet = new Set();
+        stopWordsTxt.split("\r\n").forEach(word => stopWordsSet.add(word.trim()));
+
+    }
+
+    subtitle.forEach(line => line.split(" ").forEach(word => {
+            const processedWord = word.trim().toLowerCase().replace(/[.,-?!]/g, "");
+
+            if (!stopWordsSet.has(processedWord)) conceptWordsSet.add(processedWord);
+        }
+    ));
 }
