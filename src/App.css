@@ -275,7 +275,7 @@ h3 {
 
 .movie-cards-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
     gap: 1rem;
     justify-items: center;
     align-items: center;
