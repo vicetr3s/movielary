@@ -95,10 +95,14 @@ async function parseSrt(srt) {
     });
 }
 
-export async function getConceptWordsFromSubtitle(subtitle) {
+export async function getConceptWordsFromSubtitle(subtitle, wordsAmount) {
     const stopWordsTxt = await fetchUrl("public/txt/stop_words.txt", {}, false);
-    const conceptWordsMap = new Map();
-    let sortedConceptWordsMap;
+    const subtitleWordsMap = new Map();
+    const initialWordsSplice = 15;
+
+    const shuffle = (array) => {
+        return array.sort(() => Math.random() - 0.5)
+    };
 
     if (!stopWordsSet) {
         stopWordsSet = new Set();
@@ -108,15 +112,18 @@ export async function getConceptWordsFromSubtitle(subtitle) {
 
     subtitle.forEach(line => line.split(" ").forEach(word => {
             const processedWord = word.trim().toLowerCase().replace(/[“”".,-?!…]|'s|'d|'em/g, "");
+            const lemmatizedWord = lemmatizer.only_lemmas(processedWord).sort()[0];
 
-            if (!processedWord || processedWord.length <= 2) return;
+            if (!lemmatizedWord || lemmatizedWord.length <= 2) return;
 
-            if (!stopWordsSet.has(processedWord)) {
-                const wordCount = (conceptWordsMap.get(processedWord) || 0) + 1;
-                conceptWordsMap.set(lemmatizer.only_lemmas(processedWord).sort()[0], wordCount);
+            if (!stopWordsSet.has(lemmatizedWord)) {
+                const wordCount = (subtitleWordsMap.get(lemmatizedWord) || 0) + 1;
+                subtitleWordsMap.set(lemmatizedWord, wordCount);
             }
         }
     ));
 
-    sortedConceptWordsMap = new Map([...conceptWordsMap.entries()].sort());
+    const sortedConceptWordsMap = new Map([...subtitleWordsMap.entries()].sort((a, b) => b[1] - a[1]).slice(initialWordsSplice));
+
+    return shuffle([...sortedConceptWordsMap.keys()]).slice(0, wordsAmount);
 }
