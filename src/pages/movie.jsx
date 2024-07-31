@@ -9,23 +9,20 @@ import {getConceptCards} from "../lib/SubtitlesAPI.js";
 export default function Movie() {
     const location = useLocation();
     const {id} = location.state;
+    const conceptCardsAmount = 12;
+
     const [movie, setMovie] = useState(null);
-    const conceptCardsAmount = 10;
     const [conceptCards, setConceptCards] = useState(null);
 
     useEffect(() => {
-        getMovieDetailsFromID(id).then((movie) => {
-            setMovie(movie);
-        });
+        getMovieDetailsFromID(id).then(movie => setMovie(movie));
 
     }, [])
 
     useEffect(() => {
         if (!movie) return;
 
-        getConceptCards(movie.imdbId, conceptCardsAmount).then((conceptCards) => {
-            setConceptCards(conceptCards)
-        });
+        getConceptCards(movie.imdbId, conceptCardsAmount).then(conceptCards => setConceptCards(conceptCards));
 
     }, [movie]);
 

@@ -101,7 +101,7 @@ async function getConceptWordsFromSubtitle(imdbId, wordsAmount) {
     const subtitle = await getMovieSubtitle(imdbId);
     const stopWordsTxt = await fetchUrl("public/txt/stop_words.txt", {}, false);
     const subtitleWordsMap = new Map();
-    const initialWordsSplice = 15;
+    const initialWordsSplice = 10;
 
     if (!subtitle) return;
 
@@ -111,12 +111,12 @@ async function getConceptWordsFromSubtitle(imdbId, wordsAmount) {
 
     if (!stopWordsSet) {
         stopWordsSet = new Set();
-        stopWordsTxt.split("\r\n").forEach(word => stopWordsSet.add(word.trim()));
+        stopWordsTxt.split("\r\n").forEach(word => stopWordsSet.add(word.trim().toLowerCase()));
 
     }
 
     subtitle.forEach(line => line.split(" ").forEach(word => {
-            const processedWord = word.trim().toLowerCase().replace(/[“”".,-?!…]|'s|'d|'em/g, "");
+            const processedWord = word.trim().toLowerCase().replace(/[\[\]()“”".,-?!…]|'s|'d|'em|'ve/g, "");
             const lemmatizedWord = lemmatizer.only_lemmas(processedWord).sort()[0];
 
             if (!lemmatizedWord || lemmatizedWord.length <= 2) return;
