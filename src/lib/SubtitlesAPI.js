@@ -1,4 +1,4 @@
-import {fetchUrl} from "./MoviesAPI.js";
+import fetchUrl from "./fetchUrl.js";
 import Lemmatizer from "./javascript-lemmatizer-master/js/lemmatizer.js";
 
 const apiKey = import.meta.env.VITE_OS_API_KEY; // Type your opensubtitles.com free api key
@@ -99,7 +99,7 @@ async function parseSrt(srt) {
 
 async function getConceptWordsFromSubtitle(imdbId, wordsAmount) {
     const subtitle = await getMovieSubtitle(imdbId);
-    const stopWordsTxt = await fetchUrl("public/txt/stop_words.txt", {}, false);
+    const stopWordsTxt = await fetchUrl("/txt/stop_words.txt", {}, false);
     const subtitleWordsMap = new Map();
     const initialWordsSplice = 10;
 
