@@ -4,11 +4,14 @@ import {useLocation} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {getMovieDetailsFromID} from "../lib/MoviesAPI.js";
 import ConceptCardsContainer from "../components/movies/ConceptCardsContainer.jsx";
+import {getConceptCards} from "../lib/SubtitlesAPI.js";
 
 export default function Movie() {
     const location = useLocation();
     const {id} = location.state;
     const [movie, setMovie] = useState(null);
+    const conceptCardsAmount = 10;
+    const [conceptCards, setConceptCards] = useState(null);
 
     useEffect(() => {
         getMovieDetailsFromID(id).then((movie) => {
@@ -17,6 +20,15 @@ export default function Movie() {
 
     }, [])
 
+    useEffect(() => {
+        if (!movie) return;
+
+        getConceptCards(movie.imdbId, conceptCardsAmount).then((conceptCards) => {
+            setConceptCards(conceptCards)
+        });
+
+    }, [movie]);
+
     return (
         <>
             <main className={"movie-main grid-spacing"}>
@@ -24,8 +36,8 @@ export default function Movie() {
                                              imgURL={movie.imgUrl}
                                              description={movie.description} year={movie.year}
                                              genre={movie.genre} duration={movie.min}/>}
-                <ExplanationCard/>
-                <ConceptCardsContainer/>
+                <ExplanationCard cardsAmount={conceptCardsAmount}/>
+                {conceptCards && <ConceptCardsContainer cards={conceptCards}/>}
             </main>
         </>
     )

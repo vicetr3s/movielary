@@ -64,7 +64,7 @@ async function getMovies(dataJson, details = false) {
         const imgUrl = backdrop_path ? `${configJSON.images.base_url}${configJSON.images.backdrop_sizes[0]}${backdrop_path}` : "";
         const yearRegex = /^.*?-/;
         const year = release_date ? release_date.match(yearRegex)[0].slice(0, -1) : "";
-        const imdbID = item.imdb_id ?? "";
+        const imdbId = item.imdb_id ?? "";
         const min = item.runtime ?? "";
         let genre;
 
@@ -82,7 +82,7 @@ async function getMovies(dataJson, details = false) {
             description: overview,
             year: year,
             genre: genre,
-            imdbID: imdbID,
+            imdbId: imdbId,
             min: min,
         }
     })

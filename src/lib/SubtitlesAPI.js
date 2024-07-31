@@ -48,6 +48,8 @@ async function getAccessToken() {
 
     const dataJson = await fetchUrl(url, setLoginPostOptions());
 
+    if (!dataJson) return;
+
     accessToken = dataJson.token;
 }
 
@@ -65,7 +67,7 @@ async function getMovieSubtitleFileId(imdbId) {
     }
 }
 
-export async function getMovieSubtitle(imdbId) {
+async function getMovieSubtitle(imdbId) {
     const url = "https://api.opensubtitles.com/api/v1/download";
 
     try {
@@ -95,10 +97,13 @@ async function parseSrt(srt) {
     });
 }
 
-export async function getConceptWordsFromSubtitle(subtitle, wordsAmount) {
+async function getConceptWordsFromSubtitle(imdbId, wordsAmount) {
+    const subtitle = await getMovieSubtitle(imdbId);
     const stopWordsTxt = await fetchUrl("public/txt/stop_words.txt", {}, false);
     const subtitleWordsMap = new Map();
     const initialWordsSplice = 15;
+
+    if (!subtitle) return;
 
     const shuffle = (array) => {
         return array.sort(() => Math.random() - 0.5)
@@ -126,4 +131,19 @@ export async function getConceptWordsFromSubtitle(subtitle, wordsAmount) {
     const sortedConceptWordsMap = new Map([...subtitleWordsMap.entries()].sort((a, b) => b[1] - a[1]).slice(initialWordsSplice));
 
     return shuffle([...sortedConceptWordsMap.keys()]).slice(0, wordsAmount);
+}
+
+export async function getConceptCards(imdbId, conceptCardsAmount) {
+    const conceptWords = await getConceptWordsFromSubtitle(imdbId, conceptCardsAmount);
+
+    if (!conceptWords) return;
+
+    return conceptWords.map((conceptWord) => {
+        return {
+            id: conceptWord,
+            concept: conceptWord,
+            definition: "TODO",
+        }
+    })
+
 }
