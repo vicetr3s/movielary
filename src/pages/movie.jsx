@@ -15,7 +15,7 @@ export default function Movie() {
             setMovie(movie);
         });
 
-    }, [movie])
+    }, [])
 
     return (
         <>

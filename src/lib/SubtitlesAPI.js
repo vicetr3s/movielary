@@ -1,8 +1,11 @@
 import {fetchUrl} from "./MoviesAPI.js";
+import Lemmatizer from "./javascript-lemmatizer-master/js/lemmatizer.js";
 
 const apiKey = import.meta.env.VITE_OS_API_KEY; // Type your opensubtitles.com free api key
 const username = import.meta.env.VITE_OS_USERNAME; // Type your opensubtitles.com username
 const password = import.meta.env.VITE_OS_PASSWORD; // Type your opensubtitles.com password
+const lemmatizer = new Lemmatizer();
+
 let accessToken;
 let stopWordsSet;
 
@@ -94,7 +97,8 @@ async function parseSrt(srt) {
 
 export async function getConceptWordsFromSubtitle(subtitle) {
     const stopWordsTxt = await fetchUrl("public/txt/stop_words.txt", {}, false);
-    const conceptWordsSet = new Set();
+    const conceptWordsMap = new Map();
+    let sortedConceptWordsMap;
 
     if (!stopWordsSet) {
         stopWordsSet = new Set();
@@ -103,9 +107,16 @@ export async function getConceptWordsFromSubtitle(subtitle) {
     }
 
     subtitle.forEach(line => line.split(" ").forEach(word => {
-            const processedWord = word.trim().toLowerCase().replace(/[.,-?!]/g, "");
+            const processedWord = word.trim().toLowerCase().replace(/[“”".,-?!…]|'s|'d|'em/g, "");
 
-            if (!stopWordsSet.has(processedWord)) conceptWordsSet.add(processedWord);
+            if (!processedWord || processedWord.length <= 2) return;
+
+            if (!stopWordsSet.has(processedWord)) {
+                const wordCount = (conceptWordsMap.get(processedWord) || 0) + 1;
+                conceptWordsMap.set(lemmatizer.only_lemmas(processedWord).sort()[0], wordCount);
+            }
         }
     ));
+
+    sortedConceptWordsMap = new Map([...conceptWordsMap.entries()].sort());
 }
