@@ -15,6 +15,8 @@ export default function Movie() {
     const [conceptCards, setConceptCards] = useState(null);
 
     useEffect(() => {
+        if (!id) return;
+
         getMovieDetailsFromID(id).then(movie => setMovie(movie));
 
     }, [])

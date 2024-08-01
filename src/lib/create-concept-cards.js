@@ -46,7 +46,7 @@ async function getConceptWords(imdbId) {
 
 export async function getWordCards(imdbId, cardsAmount) {
     const conceptWords = await getConceptWords(imdbId);
-    console.log(conceptWords);
+
     if (!conceptWords) return [];
 
     const cards = await Promise.all(conceptWords.map(async (word) => ({
@@ -55,5 +55,5 @@ export async function getWordCards(imdbId, cardsAmount) {
         definition: await getWordDefinition(word),
     })));
 
-    return cards.filter(card => card.definition).slice(cardsAmount);
+    return cards.filter(card => card.definition).slice(0, cardsAmount);
 }
