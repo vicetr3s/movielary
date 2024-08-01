@@ -3,7 +3,7 @@ import Button from "../ui/Button.jsx";
 import SearchIcon from "../../assets/svg/search.svg?react";
 import DiscoverIcon from "../../assets/svg/discover.svg?react";
 import "../../App.css"
-import {getMoviesFromTitle, getPopularMovies} from "../../lib/MoviesAPI.js";
+import {getMoviesFromTitle, getPopularMovies} from "../../lib/movies-api.js";
 
 export default function SearchAndDiscover({setMovies}) {
     const [searchText, setSearchText] = useState("");

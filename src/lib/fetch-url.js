@@ -21,13 +21,13 @@ export default async function fetchUrl(url, options, json = true) {
                     break;
             }
 
-            return;
+            return Promise.reject(new Error(`HTTP error! status: ${response.status}`));
         }
 
         if (!json) return await response.text();
 
         return await response.json();
     } catch (error) {
-        throw new Error(error.message);
+        throw new Error(`Error fetching data: ${error.message}`);
     }
 }

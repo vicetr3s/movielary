@@ -1,4 +1,4 @@
-import fetchUrl from "./fetchUrl.js";
+import fetchUrl from "./fetch-url.js";
 
 const apiKey = import.meta.env.VITE_TMDB_API_KEY; // Type your themoviedb free api key
 

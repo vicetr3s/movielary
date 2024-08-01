@@ -2,9 +2,9 @@ import MovieExpandedCard from "../components/movies/MovieExpandedCard.jsx";
 import ExplanationCard from "../components/movies/ExplanationCard.jsx";
 import {useLocation} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {getMovieDetailsFromID} from "../lib/MoviesAPI.js";
+import {getMovieDetailsFromID} from "../lib/movies-api.js";
 import ConceptCardsContainer from "../components/movies/ConceptCardsContainer.jsx";
-import {getConceptCards} from "../lib/SubtitlesAPI.js";
+import {getWordCards} from "../lib/create-concept-cards.js";
 
 export default function Movie() {
     const location = useLocation();
@@ -22,7 +22,7 @@ export default function Movie() {
     useEffect(() => {
         if (!movie) return;
 
-        getConceptCards(movie.imdbId, conceptCardsAmount).then(conceptCards => setConceptCards(conceptCards));
+        getWordCards(movie.imdbId, conceptCardsAmount).then(conceptCards => setConceptCards(conceptCards));
 
     }, [movie]);
 
@@ -33,7 +33,7 @@ export default function Movie() {
                                              imgURL={movie.imgUrl}
                                              description={movie.description} year={movie.year}
                                              genre={movie.genre} duration={movie.min}/>}
-                <ExplanationCard cardsAmount={conceptCardsAmount}/>
+                <ExplanationCard cardsAmount={conceptCards ? conceptCards.length : 0}/>
                 {conceptCards && <ConceptCardsContainer cards={conceptCards}/>}
             </main>
         </>

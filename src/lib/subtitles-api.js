@@ -1,13 +1,10 @@
-import fetchUrl from "./fetchUrl.js";
-import Lemmatizer from "./javascript-lemmatizer-master/js/lemmatizer.js";
+import fetchUrl from "./fetch-url.js";
 
 const apiKey = import.meta.env.VITE_OS_API_KEY; // Type your opensubtitles.com free api key
 const username = import.meta.env.VITE_OS_USERNAME; // Type your opensubtitles.com username
 const password = import.meta.env.VITE_OS_PASSWORD; // Type your opensubtitles.com password
-const lemmatizer = new Lemmatizer();
 
 let accessToken;
-let stopWordsSet;
 
 function setLoginPostOptions() {
     return {
@@ -67,7 +64,7 @@ async function getMovieSubtitleFileId(imdbId) {
     }
 }
 
-async function getMovieSubtitle(imdbId) {
+export async function getMovieSubtitle(imdbId) {
     const url = "https://api.opensubtitles.com/api/v1/download";
 
     try {
@@ -95,55 +92,4 @@ async function parseSrt(srt) {
             .replace(/<[^>]*>/g, "")
             .replace(/\{.*?}/g, '');
     });
-}
-
-async function getConceptWordsFromSubtitle(imdbId, wordsAmount) {
-    const subtitle = await getMovieSubtitle(imdbId);
-    const stopWordsTxt = await fetchUrl("/txt/stop_words.txt", {}, false);
-    const subtitleWordsMap = new Map();
-    const initialWordsSplice = 10;
-
-    if (!subtitle) return;
-
-    const shuffle = (array) => {
-        return array.sort(() => Math.random() - 0.5)
-    };
-
-    if (!stopWordsSet) {
-        stopWordsSet = new Set();
-        stopWordsTxt.split("\r\n").forEach(word => stopWordsSet.add(word.trim().toLowerCase()));
-
-    }
-
-    subtitle.forEach(line => line.split(" ").forEach(word => {
-            const processedWord = word.trim().toLowerCase().replace(/[\[\]()“”".,-?!…]|'s|'d|'em|'ve/g, "");
-            const lemmatizedWord = lemmatizer.only_lemmas(processedWord).sort()[0];
-
-            if (!lemmatizedWord || lemmatizedWord.length <= 2) return;
-
-            if (!stopWordsSet.has(lemmatizedWord)) {
-                const wordCount = (subtitleWordsMap.get(lemmatizedWord) || 0) + 1;
-                subtitleWordsMap.set(lemmatizedWord, wordCount);
-            }
-        }
-    ));
-
-    const sortedConceptWordsMap = new Map([...subtitleWordsMap.entries()].sort((a, b) => b[1] - a[1]).slice(initialWordsSplice));
-
-    return shuffle([...sortedConceptWordsMap.keys()]).slice(0, wordsAmount);
-}
-
-export async function getConceptCards(imdbId, conceptCardsAmount) {
-    const conceptWords = await getConceptWordsFromSubtitle(imdbId, conceptCardsAmount);
-
-    if (!conceptWords) return;
-
-    return conceptWords.map((conceptWord) => {
-        return {
-            id: conceptWord,
-            concept: conceptWord,
-            definition: "TODO",
-        }
-    })
-
 }
