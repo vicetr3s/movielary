@@ -284,7 +284,6 @@ h3 {
     min-height: 45vh;
 }
 
-
 .movie-clapper {
     grid-area: movies;
     width: 90%;
@@ -301,7 +300,6 @@ h3 {
     justify-content: center;
     align-items: flex-start;
 }
-
 
 .clapper-upper, .clapper-lower {
     height: 2rem;
@@ -395,6 +393,7 @@ h3 {
     text-decoration: none;
 }
 
+
 /* Movie page */
 
 .movie-main {
@@ -487,26 +486,55 @@ h3 {
     gap: 1rem 0;
 }
 
-.concept-card {
-    background-color: var(--secondary-ltr-clr);
-    border: none;
-    border-radius: var(--br-radius);
+.concept-card-container {
     cursor: pointer;
-    font-size: 1.125rem;
     max-width: 13rem;
-    padding: 1.5rem;
     width: 100%;
     min-height: 7rem;
+    perspective: 1000px;
+}
+
+.concept-card-content {
+    position: absolute;
     transform-style: preserve-3d;
-
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    transition: transform 0.4s ease-out;
 }
 
-.concept-card.open-card {
+.concept-card-front, .concept-card-back {
+    padding: 0.5rem;
+    border-radius: var(--br-radius);
+    background-color: var(--secondary-ltr-clr);
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.concept-card-front {
+    z-index: 2;
+    transform: rotateX(0deg);
+    font-size: 1.125rem;
+}
+
+.concept-card-back {
     background-color: var(--secondary-clr);
+    transform: rotateX(180deg);
     font-size: 1rem;
-    font-weight: 200;
-    animation: open-card 1s;
+    font-weight: 250;
+    --text-lines-n: 5;
 }
+
+.concept-card-content.flip {
+    transform: rotateX(180deg);
+}
+
 
 /* Media queries */
 
