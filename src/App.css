@@ -541,9 +541,18 @@ h3 {
 }
 
 .movie-suggestions-container {
-    background: red;
-    max-width: 100%;
-    display: flex;
+    grid-area: similar;
+    max-width: 70vw;
+}
+
+.movie-suggestion {
+    width: auto !important;
+}
+
+.movie-suggestion img {
+    border-radius: var(--br-radius);
+    width: clamp(10rem, 90%, 14rem);
+    min-height: 8rem;
 }
 
 /* Media queries */
