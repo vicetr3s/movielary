@@ -5,21 +5,21 @@ import {useEffect, useState} from "react";
 import {getMovieDetailsFromID} from "../lib/movies-api.js";
 import ConceptCardsContainer from "../components/movies/ConceptCardsContainer.jsx";
 import {getWordCards} from "../lib/create-concept-cards.js";
+import MovieSuggestions from "../components/movies/MovieSuggestions.jsx";
 
 export default function Movie() {
     const location = useLocation();
-    const {id} = location.state;
-    const conceptCardsAmount = 12;
-
     const [movie, setMovie] = useState(null);
     const [conceptCards, setConceptCards] = useState(null);
+    const {id} = location.state;
+    const conceptCardsAmount = 12;
 
     useEffect(() => {
         if (!id) return;
 
         getMovieDetailsFromID(id).then(movie => setMovie(movie));
 
-    }, [])
+    }, [id])
 
     useEffect(() => {
         if (!movie) return;
@@ -37,6 +37,7 @@ export default function Movie() {
                                              genre={movie.genre} duration={movie.min}/>}
                 <ExplanationCard cardsAmount={conceptCards ? conceptCards.length : 0}/>
                 {conceptCards && <ConceptCardsContainer cards={conceptCards}/>}
+                {movie && <MovieSuggestions genreId={movie.genreId}/>}
             </main>
         </>
     )

@@ -45,7 +45,7 @@ h2 {
 }
 
 h3 {
-    font-size: clamp(1rem, 1rem + 1vw, 1.5rem);
+    font-size: clamp(1rem, 1rem + 1vw, 1.3rem);
 }
 
 .page-title span.emoji {
@@ -515,6 +515,7 @@ h3 {
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
 }
 
 .concept-card-front {
@@ -535,6 +536,15 @@ h3 {
     transform: rotateX(180deg);
 }
 
+.movie-suggestions-section {
+    grid-area: similar;
+}
+
+.movie-suggestions-container {
+    background: red;
+    max-width: 100%;
+    display: flex;
+}
 
 /* Media queries */
 

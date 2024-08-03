@@ -6,7 +6,7 @@ const password = import.meta.env.VITE_OS_PASSWORD; // Type your opensubtitles.co
 
 let accessToken;
 
-function setLoginPostOptions() {
+function setLoginPostHeaders() {
     return {
         method: 'POST', headers: {
             'Accept': 'application/json',
@@ -17,7 +17,7 @@ function setLoginPostOptions() {
     }
 }
 
-function setGetOptions() {
+function setGetHeaders() {
     return {
         method: 'GET', headers: {
             'Accept': 'application/json',
@@ -29,7 +29,7 @@ function setGetOptions() {
     };
 }
 
-function setDownloadPostOptions(fileId) {
+function setDownloadPostHeaders(fileId) {
     return {
         method: 'POST', headers: {
             'Accept': 'application/json',
@@ -43,7 +43,7 @@ function setDownloadPostOptions(fileId) {
 async function getAccessToken() {
     const url = "https://api.opensubtitles.com/api/v1/login";
 
-    const dataJson = await fetchUrl(url, setLoginPostOptions());
+    const dataJson = await fetchUrl(url, setLoginPostHeaders());
 
     if (!dataJson) return;
 
@@ -56,7 +56,7 @@ async function getMovieSubtitleFileId(imdbId) {
     try {
         if (!accessToken) await getAccessToken();
 
-        const dataJson = await fetchUrl(url, setGetOptions());
+        const dataJson = await fetchUrl(url, setGetHeaders());
 
         return dataJson.data[0].attributes.files[0].file_id;
     } catch (error) {
@@ -71,7 +71,7 @@ export async function getMovieSubtitle(imdbId) {
         if (!accessToken) await getAccessToken();
 
         const fileId = await getMovieSubtitleFileId(imdbId);
-        const dataJson = await fetchUrl(url, setDownloadPostOptions(fileId));
+        const dataJson = await fetchUrl(url, setDownloadPostHeaders(fileId));
         const srtUrl = dataJson["link"];
         const srt = await fetchUrl(srtUrl, {}, false);
 

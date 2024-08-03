@@ -2,7 +2,7 @@ import fetchUrl from "./fetch-url.js";
 
 const apiKey = import.meta.env.VITE_TMDB_API_KEY; // Type your themoviedb free api key
 
-function setGETOptions() {
+function setGetHeaders() {
     return {
         method: 'GET',
         headers: {
@@ -12,10 +12,11 @@ function setGETOptions() {
     };
 }
 
-export async function getPopularMovies(page, descSort) {
-    const url = `https://api.themoviedb.org/3/discover/movie?${addUrlParameters(page, false, true, descSort)}`;
+export async function getPopularMovies(page, descSort, withGenre = false, genreId = "") {
+    const parameters = !withGenre ? addUrlParameters(page, false, true, descSort) : addUrlParameters(page, false, true, descSort, genreId);
+    const url = `https://api.themoviedb.org/3/discover/movie?${parameters}`;
 
-    const dataJson = await fetchUrl(url, setGETOptions());
+    const dataJson = await fetchUrl(url, setGetHeaders());
 
     return getMovies(dataJson);
 }
@@ -23,13 +24,13 @@ export async function getPopularMovies(page, descSort) {
 async function getGenres() {
     const url = "https://api.themoviedb.org/3/genre/movie/list";
 
-    return fetchUrl(url, setGETOptions());
+    return fetchUrl(url, setGetHeaders());
 }
 
 export async function getConfiguration() {
     const url = "https://api.themoviedb.org/3/configuration";
 
-    return fetchUrl(url, setGETOptions());
+    return fetchUrl(url, setGetHeaders());
 }
 
 export async function getMoviesFromTitle(title, page) {
@@ -37,7 +38,7 @@ export async function getMoviesFromTitle(title, page) {
 
     const url = `https://api.themoviedb.org/3/search/movie?query=${titleName}${addUrlParameters(page)}`;
 
-    const dataJson = await fetchUrl(url, setGETOptions());
+    const dataJson = await fetchUrl(url, setGetHeaders());
 
     return getMovies(dataJson);
 }
@@ -45,7 +46,7 @@ export async function getMoviesFromTitle(title, page) {
 export async function getMovieDetailsFromID(movieID) {
     const url = `https://api.themoviedb.org/3/movie/${movieID}`;
 
-    const dataJson = await fetchUrl(url, setGETOptions());
+    const dataJson = await fetchUrl(url, setGetHeaders());
 
     const arrayMovie = await getMovies(dataJson, true);
 
@@ -68,13 +69,17 @@ async function getMovies(dataJson, details = false) {
         const year = release_date ? release_date.match(yearRegex)[0].slice(0, -1) : "";
         const imdbId = item.imdb_id ?? "";
         const min = item.runtime ?? "";
+
         let genre;
+        let genreId;
 
         if (details) {
             genre = item.genres[0] ? item.genres[0].name : "";
+            genreId = item.genres[0] ? item.genres[0].id : "";
         } else {
             const genreFound = genresList.find(genre => genre.id === item.genre_ids[0]);
             genre = genreFound ? genreFound.name : "";
+            genreId = item.genre_ids[0];
         }
 
         return {
@@ -84,20 +89,22 @@ async function getMovies(dataJson, details = false) {
             description: overview,
             year: year,
             genre: genre,
+            genreId: genreId,
             imdbId: imdbId,
             min: min,
         }
     })
 }
 
-const addUrlParameters = (page = 1, video = false, popularitySort = false, descSort = true) => {
+const addUrlParameters = (page = 1, video = false, popularitySort = false, descSort = true, genreId = "") => {
     const includeAdult = `&include_adult=false`;
     const includeVideo = `&include_video=${video}`
     const language = "&language=en-US";
     const pageNumber = `&page=${page}`
     const sort = descSort ? "&sort_by=popularity.desc" : "&sort_by=popularity.asc";
+    const genre = genreId ? `&with_genres=${genreId}` : "";
 
-    if (!popularitySort) return includeAdult + includeVideo + language + pageNumber;
+    if (!popularitySort) return includeAdult + includeVideo + language + pageNumber + genre;
 
-    return includeAdult + includeVideo + language + pageNumber + sort;
+    return includeAdult + includeVideo + language + pageNumber + sort + genre;
 }

@@ -10,7 +10,8 @@ export default function CreatorDescription() {
             <ul className="description-list">
                 <li>
                     Created by <a href={"https://github.com/vicetr3s"}
-                                  className={"accent-text github-name"}>@vicetr3s</a>
+                                  className={"accent-text github-name"} target={"_blank"}
+                                  rel="noopener noreferrer">@vicetr3s</a>
                     <a href={"https://github.com/"} target={"_blank"} rel="noopener noreferrer">
                         <GithubIcon className={"about-icon"}/>
                     </a>
