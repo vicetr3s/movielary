@@ -96,6 +96,15 @@ async function getMovies(dataJson, details = false) {
     })
 }
 
+export async function getSimilarMovies(genreId, movieId, amount) {
+    const movies = await getPopularMovies(1, true, true, genreId);
+
+    const filteredMovies = movies.filter(movie => movie.id !== movieId);
+
+    return filteredMovies.slice(0, amount);
+
+}
+
 const addUrlParameters = (page = 1, video = false, popularitySort = false, descSort = true, genreId = "") => {
     const includeAdult = `&include_adult=false`;
     const includeVideo = `&include_video=${video}`

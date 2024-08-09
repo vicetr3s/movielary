@@ -538,20 +538,22 @@ h3 {
 
 .movie-suggestions-section {
     grid-area: similar;
-}
-
-.movie-suggestions-container {
-    grid-area: similar;
     max-width: 70vw;
 }
 
+.movie-suggestions-container {
+    width: 100%;
+}
+
 .movie-suggestion {
-    width: auto !important;
+    width: fit-content !important;
+
 }
 
 .movie-suggestion img {
+    margin-inline: auto;
     border-radius: var(--br-radius);
-    width: clamp(10rem, 90%, 14rem);
+    width: clamp(12rem, 14rem, 16rem);
     min-height: 8rem;
 }
 
@@ -599,8 +601,16 @@ h3 {
             "similar";
     }
 
+    .movie-expanded-card {
+        width: 100%;
+    }
+
     .explanation-card {
         width: 100%;
         max-width: max-content;
+    }
+
+    .movie-suggestions-section {
+        max-width: 85vw;
     }
 }

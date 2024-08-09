@@ -36,8 +36,8 @@ export default function Movie() {
                                              description={movie.description} year={movie.year}
                                              genre={movie.genre} duration={movie.min}/>}
                 <ExplanationCard cardsAmount={conceptCards ? conceptCards.length : 0}/>
-                {conceptCards && <ConceptCardsContainer cards={conceptCards}/>}
-                {movie && <MovieSuggestions genreId={movie.genreId}/>}
+                <ConceptCardsContainer cards={conceptCards}/>
+                {movie && <MovieSuggestions genreId={movie.genreId} movieId={movie.id}/>}
             </main>
         </>
     )

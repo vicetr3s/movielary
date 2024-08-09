@@ -1,14 +1,14 @@
 import {useEffect, useState} from "react";
-import {getPopularMovies} from "../../lib/movies-api.js";
+import {getSimilarMovies} from "../../lib/movies-api.js";
 import MoviesCarousel from "./MoviesCarousel.jsx";
 
-export default function MovieSuggestions({genreId}) {
+export default function MovieSuggestions({movieId, genreId}) {
     const [movieSuggestions, setMovieSuggestions] = useState([]);
+    const suggestionsAmount = 6;
 
     useEffect(() => {
-        getPopularMovies(1, true, true, genreId).then((movies) => {
-            const slicedMovies = movies.slice(0, 6);
-            setMovieSuggestions(slicedMovies);
+        getSimilarMovies(genreId, movieId, suggestionsAmount).then((movies) => {
+            setMovieSuggestions(movies);
         });
     }, []);
 
