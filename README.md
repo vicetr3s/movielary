@@ -1,4 +1,4 @@
-# Movielary 🍿🎬📚
+# 🎥 Movielary 📖
 
 ## Learn vocabulary from movies. A React app that turns movies into flashcards.
 
