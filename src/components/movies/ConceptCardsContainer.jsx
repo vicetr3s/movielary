@@ -1,6 +1,6 @@
 import ConceptCard from "./ConceptCard.jsx";
-import Loading from "./Loading.jsx";
-import Error from "./Error.jsx";
+import Loading from "../ui/Loading.jsx";
+import Error from "../ui/Error.jsx";
 
 export default function ConceptCardsContainer({cards, isLoading, isError}) {
     return (

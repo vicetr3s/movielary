@@ -1,5 +1,5 @@
 import MovieCard from "./MovieCard.jsx";
-import Loading from "./Loading.jsx";
+import Loading from "../ui/Loading.jsx";
 
 export default function MovieCardsContainer({movies, isLoading}) {
     return (<div className={"movie-clapper"}>
