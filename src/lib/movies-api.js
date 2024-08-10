@@ -99,7 +99,7 @@ async function getMovies(dataJson, details = false) {
 export async function getSimilarMovies(genreId, movieId, amount) {
     const movies = await getPopularMovies(1, true, true, genreId);
 
-    const filteredMovies = movies.filter(movie => movie.id !== movieId);
+    const filteredMovies = movies.filter((movie, index) => movies.indexOf(movie) === index && movie.id !== movieId);
 
     return filteredMovies.slice(0, amount);
 

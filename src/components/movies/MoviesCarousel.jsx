@@ -20,7 +20,7 @@ export default function MoviesCarousel({movies}) {
     return (
         <Slider {...settings} className={"movie-suggestions-container container"}>
             {movies && movies?.map(movie => (
-                <NavLink to="/movie" state={{id: movie.id}} className={"movie-suggestion"}>
+                <NavLink to="/movie" key={movie.id} state={{id: movie.id}} className={"movie-suggestion"}>
                     <img src={movie.imgUrl} alt={movie.title}/>
                 </NavLink>
             ))}

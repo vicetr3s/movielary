@@ -11,6 +11,8 @@ export default function Movie() {
     const location = useLocation();
     const [movie, setMovie] = useState(null);
     const [conceptCards, setConceptCards] = useState(null);
+    const [isLoadingCards, setIsLoadingCards] = useState(true);
+    const [isErrorCards, setIsErrorCards] = useState(false);
     const {id} = location.state;
     const conceptCardsAmount = 12;
 
@@ -23,8 +25,11 @@ export default function Movie() {
 
     useEffect(() => {
         if (!movie) return;
-
-        getWordCards(movie.imdbId, conceptCardsAmount).then(conceptCards => setConceptCards(conceptCards));
+        setIsLoadingCards(true);
+        getWordCards(movie.imdbId, conceptCardsAmount)
+            .then(conceptCards => setConceptCards(conceptCards))
+            .catch(() => setIsErrorCards(true))
+            .finally(() => setIsLoadingCards(false));
 
     }, [movie]);
 
@@ -36,7 +41,7 @@ export default function Movie() {
                                              description={movie.description} year={movie.year}
                                              genre={movie.genre} duration={movie.min}/>}
                 <ExplanationCard cardsAmount={conceptCards ? conceptCards.length : 0}/>
-                <ConceptCardsContainer cards={conceptCards}/>
+                <ConceptCardsContainer cards={conceptCards} isLoading={isLoadingCards} isError={isErrorCards}/>
                 {movie && <MovieSuggestions genreId={movie.genreId} movieId={movie.id}/>}
             </main>
         </>

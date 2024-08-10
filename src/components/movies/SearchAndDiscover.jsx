@@ -5,29 +5,37 @@ import DiscoverIcon from "../../assets/svg/discover.svg?react";
 import "../../App.css"
 import {getMoviesFromTitle, getPopularMovies} from "../../lib/movies-api.js";
 
-export default function SearchAndDiscover({setMovies}) {
+export default function SearchAndDiscover({setMovies, setIsLoadingMovies}) {
     const [searchText, setSearchText] = useState("");
     const lengthNeededToSearchMovie = 4;
 
     const handleDiscoverButtonClick = () => {
-        getPopularMovies(1, true).then((movies) => {
-            setMovies(movies);
-        });
+        setIsLoadingMovies(true);
+        getPopularMovies(1, true)
+            .then((movies) => {
+                setMovies(movies);
+            })
+            .finally(() => setIsLoadingMovies(false));
     }
 
     const handleSearchButtonClick = () => {
-        getMoviesFromTitle(searchText, 1).then((movies) => {
-            setMovies(movies);
-        })
+        setIsLoadingMovies(true);
+        getMoviesFromTitle(searchText, 1)
+            .then((movies) => {
+                setMovies(movies);
+            })
+            .finally(() => setIsLoadingMovies(false));
     }
 
     const handleSearchText = (searchText) => {
         setSearchText(searchText);
 
         if (searchText.length >= lengthNeededToSearchMovie) {
-            getMoviesFromTitle(searchText, 1).then((movies) => {
-                setMovies(movies);
-            })
+            getMoviesFromTitle(searchText, 1)
+                .then((movies) => {
+                    setMovies(movies);
+                })
+                .finally(() => setIsLoadingMovies(false));
         }
 
         if (searchText.length === 0) {

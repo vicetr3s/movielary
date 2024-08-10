@@ -4,11 +4,12 @@ import MovieCardsContainer from "./MovieCardsContainer.jsx";
 
 export default function SearchedMovies() {
     const [movies, setMovies] = useState(null);
+    const [isLoadingMovies, setIsLoadingMovies] = useState(false);
 
     return (
         <>
-            <SearchAndDiscover setMovies={setMovies}/>
-            <MovieCardsContainer movies={movies}/>
+            <SearchAndDiscover setMovies={setMovies} setIsLoadingMovies={setIsLoadingMovies}/>
+            <MovieCardsContainer movies={movies} isLoading={isLoadingMovies}/>
         </>
     )
 }

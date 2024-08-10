@@ -24,6 +24,7 @@
     --movie-clapper-lt-clr: #778EB1;
     --movie-clapper-dk-clr: #405980;
     --fnt-clr: #000000;
+    --error-red-clr: #EC5151;
 }
 
 body {
@@ -557,6 +558,27 @@ h3 {
     min-height: 8rem;
 }
 
+.client-msg {
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.loading {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    color: var(--secondary-dk-clr);
+}
+
+.loading span:nth-child(1) {
+    animation: floating 2.5s infinite ease-in-out;
+}
+
+.error {
+    color: var(--error-red-clr);
+}
+
 /* Media queries */
 
 @media screen and (max-width: 60em) {
@@ -612,5 +634,20 @@ h3 {
 
     .movie-suggestions-section {
         max-width: 85vw;
+    }
+}
+
+/* Animations */
+
+@keyframes floating {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+    100% {
+        transform: translateY(0);
+
     }
 }
