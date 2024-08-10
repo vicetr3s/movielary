@@ -25,7 +25,10 @@ export default function Movie() {
 
     useEffect(() => {
         if (!movie) return;
+
         setIsLoadingCards(true);
+        setIsErrorCards(false);
+
         getWordCards(movie.imdbId, conceptCardsAmount)
             .then(conceptCards => setConceptCards(conceptCards))
             .catch(() => setIsErrorCards(true))
