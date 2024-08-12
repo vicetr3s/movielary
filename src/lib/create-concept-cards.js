@@ -34,6 +34,8 @@ async function getConceptWords(imdbId) {
             if (!stopWordsSet.has(lemmatizedWord)) {
                 const wordCount = (subtitleWordsMap.get(lemmatizedWord) || 0) + 1;
                 subtitleWordsMap.set(lemmatizedWord, wordCount);
+            } else {
+                console.log("tried to add", lemmatizedWord);
             }
         }
     ));
