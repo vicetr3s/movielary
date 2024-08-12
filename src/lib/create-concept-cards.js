@@ -24,6 +24,9 @@ async function getConceptWords(imdbId) {
         stopWordsSet = new Set();
         stopWordsTxt.split("\r\n").forEach(word => stopWordsSet.add(word.trim().toLowerCase()));
     }
+    console.log("txt",stopWordsTxt);
+
+    console.log("set",stopWordsSet);
 
     subtitle.forEach(line => line.split(" ").forEach(word => {
             const processedWord = word.trim().toLowerCase().replace(/[\[\]()“”".,-?!…]|'s|'d|'em|'ve/g, "");
