@@ -16,7 +16,7 @@ export default function ConceptCard({concept, definition}) {
                     <span>{concept}</span>
                 </div>
                 <div className={"concept-card-back"}>
-                    <p className={"cut-long-text"}>{definition}</p>
+                    <p className={"cut-long-text"} title={definition}>{definition}</p>
                 </div>
             </div>
         </div>
