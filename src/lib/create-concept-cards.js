@@ -20,7 +20,7 @@ async function getConceptWords(imdbId) {
         return array.sort(() => Math.random() - 0.5)
     };
 
-    if (!stopWordsSet) {
+    if (!stopWordsSet || stopWordsSet.size === 0) {
         stopWordsSet = new Set();
         stopWordsTxt.split("\r\n").forEach(word => stopWordsSet.add(word.trim().toLowerCase()));
     }
