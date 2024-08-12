@@ -48,11 +48,18 @@ export async function getWordCards(imdbId, cardsAmount) {
 
     if (!conceptWords) return [];
 
-    const cards = await Promise.all(conceptWords.map(async (word) => ({
-        id: word,
-        concept: word,
-        definition: await getWordDefinition(word),
-    })));
+    const cards = await Promise.all(conceptWords.map(async (word) => {
+        try {
+            const definition = await getWordDefinition(word);
+            return {
+                id: word,
+                concept: word,
+                definition: definition,
+            };
+        } catch (error) {
+            return null;
+        }
+    }));
 
-    return cards.filter(card => card.definition).slice(0, cardsAmount);
+    return cards.filter(card => card).slice(0, cardsAmount);
 }

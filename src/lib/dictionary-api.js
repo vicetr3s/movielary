@@ -1,14 +1,15 @@
 import fetchUrl from "./fetch-url.js";
 
+const apiKey = import.meta.env.VITE_DICT_API_KEY;
+
 export async function getWordDefinition(word) {
-    const url = `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`;
+    const url = `https://www.dictionaryapi.com/api/v3/references/sd4/json/${word}?key=${apiKey}`;
 
     const dataJson = await fetchUrl(url, {});
 
     if (!dataJson) return null;
 
-    const {meanings} = dataJson[0];
-    const {definitions} = meanings[0];
+    const shortDefinitions = dataJson[0]["shortdef"];
 
-    return definitions[0].definition;
+    return shortDefinitions[0];
 }

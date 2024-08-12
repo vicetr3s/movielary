@@ -58,7 +58,9 @@ async function getMovieSubtitleFileId(imdbId) {
 
         const dataJson = await fetchUrl(url, setGetHeaders());
 
-        return dataJson.data[0].attributes.files[0].file_id;
+        if (!dataJson) return null;
+
+        return dataJson.data[0].attributes.files[0]["file_id"];
     } catch (error) {
         console.log(error);
     }
