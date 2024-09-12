@@ -1,8 +1,8 @@
 import fetchUrl from "./fetch-url.js";
 
-const apiKey = import.meta.env.VITE_OS_API_KEY; // Type your opensubtitles.com free api key
-const username = import.meta.env.VITE_OS_USERNAME; // Type your opensubtitles.com username
-const password = import.meta.env.VITE_OS_PASSWORD; // Type your opensubtitles.com password
+const apiKey = import.meta.env.VITE_OS_API_KEY || prompt("Type your opensubtitles.com free api key: "); // Type your opensubtitles.com free api key
+const username = import.meta.env.VITE_OS_USERNAME || prompt("Type your opensubtitles.com username"); // Type your opensubtitles.com username
+const password = import.meta.env.VITE_OS_PASSWORD || prompt("Type your opensubtitles.com password"); // Type your opensubtitles.com password
 
 let accessToken;
 

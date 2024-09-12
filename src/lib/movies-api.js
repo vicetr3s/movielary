@@ -1,6 +1,6 @@
 import fetchUrl from "./fetch-url.js";
 
-const apiKey = import.meta.env.VITE_TMDB_API_KEY; // Type your themoviedb free api key
+const apiKey = import.meta.env.VITE_TMDB_API_KEY || prompt("Type your themoviedb free api key: "); // Type your themoviedb free api key
 
 function setGetHeaders() {
     return {
