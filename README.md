@@ -25,3 +25,14 @@ Movielary is a personal project built with React, CSS and HTML. It uses the TMDB
 3. Word Extraction: Key words are identified from the subtitles.
 4. Definition Retrieval: Dictionary API provides definitions for the extracted words.
 5. Flashcard Creation: Flashcards are generated with the word on one side and the definition on the other.
+
+## Screenshots
+
+### Home
+
+![image](https://github.com/user-attachments/assets/3f9e0cb4-9258-4002-b857-9c56d1243fa7)
+
+### Movie details and concept cards
+
+![image](https://github.com/user-attachments/assets/772beb0e-06e3-4968-b7fe-0d854bc983cd)
+
